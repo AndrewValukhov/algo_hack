@@ -6,13 +6,6 @@ import streamlit as st
 # Нам нужна функция запускатор, в которую все будет собираться
 # в ней буду вызываться более мелкие функции
 
-TICKER = 'SBER'
-GAP_DATES = ['2020-10-01', '2021-05-10', '2023-05-08']
-DIVIDENDS = [18.7, 18.7, 25]
-SHORT_MA = 9
-LONG_MA = 45
-ATDS = 252
-
 
 def preprocess(ticker, gap_dates, dividends):
 
@@ -59,11 +52,11 @@ def calc_mas(df, fast=9, slow=45, exp=True):
     """Функция для добавления двух скользящих средниx"""
 
     if exp:
-        df[f'm{SHORT_MA}'] = df[['adjusted_close']].ewm(span=fast, adjust=False).mean()
-        df[f'm{LONG_MA}'] = df['adjusted_close'].ewm(span=slow, adjust=False).mean()
+        df[f'm{fast}'] = df[['adjusted_close']].ewm(span=fast, adjust=False).mean()
+        df[f'm{slow}'] = df['adjusted_close'].ewm(span=slow, adjust=False).mean()
     else:
-        df[f'm{SHORT_MA}'] = df['adjusted_close'].rolling(SHORT_MA).mean()
-        df[f'm{LONG_MA}'] = df['adjusted_close'].rolling(LONG_MA).mean()
+        df[f'm{fast}'] = df['adjusted_close'].rolling(fast).mean()
+        df[f'm{slow}'] = df['adjusted_close'].rolling(slow).mean()
 
     return df
 
