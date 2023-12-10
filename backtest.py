@@ -117,8 +117,8 @@ def imitate_trades(df, allocation=1.5, shortable_allocation=0.5, initial_value=1
 
     if gap_dates:
         gds = [str(gd) for gd in gap_dates]
-    if dividends:
-        date_divs_dict = dict(zip(gds, dividends))
+
+    date_divs_dict = dict(zip(gds, dividends))
 
     for i in range(len(df)):
         # пропускаем первый день - у нас заданы начальные параметры
